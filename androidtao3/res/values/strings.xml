@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Android道第3回</string>
+    <string name="first_app">FizzBuzz</string>
+    <string name="second_app">王様ゲーム</string>
+    <string name="therd_app">割り勘電卓</string>
+    <string name="fourth_app">数宛ゲーム</string>
+    <string name="fifth_app">期間計算</string>
+    <string name="fizz">fizz</string>
+    <string name="buzz">buzz</string>
+
+</resources>
