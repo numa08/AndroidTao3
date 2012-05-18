@@ -1,6 +1,7 @@
 package jp.ac.uec.numa08.core;
 
 import jp.ac.uec.numa08.fizzbuzz.FizzBuzzActivity;
+import jp.ac.uec.numa08.king.KingActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -52,6 +53,8 @@ public class AndroidTao3Activity extends Activity implements OnClickListener {
 			targetClass = FizzBuzzActivity.class;
 			break;
 		case R.id.second_app:
+			targetClass = KingActivity.class;
+			break;
 		case R.id.therd_app:
 		case R.id.fourth_app:
 		case R.id.fifth_app:

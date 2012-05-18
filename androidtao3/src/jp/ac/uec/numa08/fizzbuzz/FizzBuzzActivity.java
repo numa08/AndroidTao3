@@ -36,26 +36,7 @@ public class FizzBuzzActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(final View view) {
 		// TODO Auto-generated method stub
-		final FizzBuzzChecker checker = new FizzBuzzChecker(targetNumber);
-		final String answer = checker.check();
-		boolean isCollect = false;
-		switch (view.getId()) {
-		case R.id.fizz_button:
-			isCollect = FizzBuzzChecker.FIZZ_MSG.equals(answer);
-			break;
-		case R.id.buzz_button:
-			isCollect = FizzBuzzChecker.BUZZ_MSG.equals(answer);
-			break;
-		case R.id.fizz_buzz_button:
-			isCollect = FizzBuzzChecker.FIZZ_BUZZ_MSG.equals(answer);
-			break;
-		case R.id.number_button:
-			isCollect = Integer.toString(targetNumber).equals(answer);
-			break;
-		default:
-			isCollect = false;
-			break;
-		}
+		final boolean isCollect = checkAnswer(view);
 		if (isCollect) {
 			targetNumber++;
 			changeText(targetNumber);
@@ -66,11 +47,53 @@ public class FizzBuzzActivity extends Activity implements OnClickListener {
 		}
 	}
 
+	/**
+	 * 正解かどうか判断する
+	 * 
+	 * @param view
+	 *            押したボタン
+	 * @return 正解かどうか
+	 */
+	private boolean checkAnswer(final View view) {
+		final FizzBuzzChecker checker = new FizzBuzzChecker(targetNumber);
+		String userInput;
+		switch (view.getId()) {
+		case R.id.fizz_button:
+			userInput = FizzBuzzChecker.FIZZ_MSG;
+			break;
+		case R.id.buzz_button:
+			userInput = FizzBuzzChecker.BUZZ_MSG;
+			break;
+		case R.id.fizz_buzz_button:
+			userInput = FizzBuzzChecker.FIZZ_BUZZ_MSG;
+			break;
+		case R.id.number_button:
+			userInput = Integer.toString(targetNumber);
+			break;
+		default:
+			userInput = "no";
+			break;
+		}
+		return checker.isCollect(userInput);
+	}
+
+	/**
+	 * 表示されている文字を変える
+	 * 
+	 * @param number
+	 *            表示する文字
+	 */
 	private void changeText(final int number) {
 		final TextView numberText = (TextView) findViewById(R.id.number);
 		numberText.setText(Integer.toString(number));
 	}
 
+	/**
+	 * 数字ボタンのテキストを変える
+	 * 
+	 * @param number
+	 *            表示する文字
+	 */
 	private void changeButtonText(final int number) {
 		final Button numberButton = (Button) findViewById(R.id.number_button);
 		numberButton.setText(Integer.toString(number));

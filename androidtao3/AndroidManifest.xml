@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name="jp.ac.uec.numa08.fizzbuzz.FizzBuzzActivity"></activity>
+        <activity android:name="jp.ac.uec.numa08.king.KingActivity"></activity>
     </application>
 
 </manifest>
