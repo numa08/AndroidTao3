@@ -12,5 +12,6 @@
     <string name="attend">参加人数</string>
     <string name="decide_king">王様だ～れだ</string>
     <string name="what_do">何をする？</string>
+    <string name="question_message">私は何番でしょうか？</string>
 
 </resources>

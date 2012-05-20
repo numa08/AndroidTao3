@@ -14,6 +14,7 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
+        public static final int answer_spinner=0x7f05000f;
         public static final int attend_spinner=0x7f050007;
         public static final int buzz_button=0x7f050003;
         public static final int decide_king_button=0x7f050008;
@@ -34,6 +35,7 @@ public final class R {
         public static final int fizzbuzz=0x7f030000;
         public static final int kinig=0x7f030001;
         public static final int main=0x7f030002;
+        public static final int whatnumber=0x7f030003;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
@@ -44,6 +46,7 @@ public final class R {
         public static final int first_app=0x7f040001;
         public static final int fizz=0x7f040006;
         public static final int fourth_app=0x7f040004;
+        public static final int question_message=0x7f04000b;
         public static final int second_app=0x7f040002;
         public static final int therd_app=0x7f040003;
         public static final int what_do=0x7f04000a;
