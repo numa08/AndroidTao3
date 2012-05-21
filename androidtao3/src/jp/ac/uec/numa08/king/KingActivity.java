@@ -87,7 +87,7 @@ public class KingActivity extends Activity implements OnClickListener {
 		String message;
 		switch (view.getId()) {
 		case R.id.decide_king_button:
-			message = game.decideWahtDo() + "が王様です！！";
+			message = game.decideKing() + "が王様です！！";
 			break;
 		case R.id.what_do_button:
 			message = game.decideWahtDo();

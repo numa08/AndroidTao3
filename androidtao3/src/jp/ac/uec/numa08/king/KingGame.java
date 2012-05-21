@@ -16,7 +16,7 @@ public class KingGame {
 	 * @return 王様の人の番号
 	 * 
 	 */
-	public int deciedKing() {
+	public int decideKing() {
 		return (int) (Math.random() * 10.0) % ATTEND_NUMBER + 1;
 	}
 
@@ -26,10 +26,10 @@ public class KingGame {
 	 * @return やること
 	 */
 	public String decideWahtDo() {
-		final int firstPerson = deciedKing();
+		final int firstPerson = decideKing();
 		int secondPerson = firstPerson;
 		while (secondPerson == firstPerson) {
-			secondPerson = deciedKing();
+			secondPerson = decideKing();
 		}
 		final String target = doList[(int) (Math.random() * 10.0)
 				% doList.length];

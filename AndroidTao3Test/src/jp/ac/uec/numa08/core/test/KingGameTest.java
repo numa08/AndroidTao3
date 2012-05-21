@@ -19,7 +19,7 @@ public class KingGameTest extends TestCase {
 
 	public void testdeciedKing() {
 		for (int i = 0; i < 100; i++) {
-			assertFalse("0にはならないよ", game.deciedKing() == 0);
+			assertFalse("0にはならないよ", game.decideKing() == 0);
 		}
 	}
 

@@ -12,7 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 public class WhatNumberActivity extends Activity {
-	private static final String TAG = WhatNumberActivity.class.getSimpleName();
+	// private static final String TAG =
+	// WhatNumberActivity.class.getSimpleName();
 	private static final int MAX_NUMBER = 20;
 	private transient WhatNumber whatNumber;
 	private transient Spinner answerSpinner;
