@@ -11,14 +11,29 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-public class WhatNumberActivity extends Activity {
+/**
+ * 数当てゲームのActivity。<br>
+ * スピナーの項目が選択された時のリスナークラス<br>
+ * OnItemSelectedListenerをimplementsする。
+ * 
+ * @author numanuma08
+ * 
+ */
+public class WhatNumberActivity extends Activity implements
+		OnItemSelectedListener {
 	// private static final String TAG =
 	// WhatNumberActivity.class.getSimpleName();
+	/** 出題されうる最大の数字。20。 */
 	private static final int MAX_NUMBER = 20;
+	/** 数当てゲームの処理を実装したクラス。 */
 	private transient WhatNumber whatNumber;
+	/** 正解を選ぶスピナー */
 	private transient Spinner answerSpinner;
 
-	/** Called when the activity is first created. */
+	/**
+	 * Activity起動時に呼び出されるメソッド。<br>
+	 * ゲーム処理クラスの初期化と、スピナーの初期化を行う。
+	 */
 	@Override
 	public void onCreate(final Bundle sIState) {
 		super.onCreate(sIState);
@@ -33,7 +48,9 @@ public class WhatNumberActivity extends Activity {
 	}
 
 	/**
-	 * スピナーを初期化する
+	 * スピナーを初期化するメソッド。<br>
+	 * スピナーの表示項目は0~20までの整数。<br>
+	 * 項目が選択された際の動作もこWhatNumberActivity内に記述する。
 	 * 
 	 */
 	private void initializeSpiner() {
@@ -47,40 +64,44 @@ public class WhatNumberActivity extends Activity {
 		answerSpinner.setAdapter(adapter);
 
 		// 項目が選択された時の設定
-		answerSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(final AdapterView<?> parent,
-					final View view, final int position, final long selectedId) {
-				// なぜかスピナーはonResume()の後に、onItemSelected()が呼び出されてしまう.
-				// とりあえず、Foucasableの初期値をfalseとし、初期起動時に反転する.
-				// 暫定対策方法として・・・
-				if (answerSpinner.isFocusable()) {
-					// TODO Auto-generated method stub
-					// 選択された項目を得る
-					final int userInput = (Integer) parent
-							.getItemAtPosition(position);
-					String message;
-					if (whatNumber.isCollect(userInput)) {
-						message = "正解！！";
-						whatNumber.resetAnser();
-					} else {
-						message = whatNumber.getHint(userInput);
-					}
-					showDialog(message);
-				} else {
-					answerSpinner.setFocusable(true);
-				}
-			}
-
-			@Override
-			public void onNothingSelected(final AdapterView<?> parent) {
-				// TODO Auto-generated method stub
-
-			}
-		});
+		answerSpinner.setOnItemSelectedListener(WhatNumberActivity.this);
 	}
 
+	/**
+	 * スピナーの項目が選択された時に呼ばれるメソッド。<br>
+	 * 選択された項目が正解かどうかを判断し、それぞれダイアログとして結果をだす。<br>
+	 * ただ、スピナーはonResume()の後になぜかこのメソッドが呼び出される（バグ？仕様？）ために、<br>
+	 * ちょっと細工をしてやる必要がある。
+	 */
+	@Override
+	public void onItemSelected(AdapterView<?> parent, View view, int position,
+			long selectedId) {
+		// TODO Auto-generated method stub
+
+		// なぜかスピナーはonResume()の後に、onItemSelected()が呼び出されてしまう.
+		// とりあえず、Foucasableの初期値をfalseとし、初期起動時に反転する.
+		// 暫定対策方法として・・・
+		if (answerSpinner.isFocusable()) {
+			// TODO Auto-generated method stub
+			// 選択された項目を得る
+			final int userInput = (Integer) parent.getItemAtPosition(position);
+			String message;
+			if (whatNumber.isCollect(userInput)) {
+				message = "正解！！";
+				whatNumber.resetAnser();
+			} else {
+				message = whatNumber.getHint(userInput);
+			}
+			showDialog(message);
+		} else {
+			answerSpinner.setFocusable(true);
+		}
+	}
+
+	/**
+	 * スピナー初期化のための細工をするために、<br>
+	 * onStartを実装する。
+	 */
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
@@ -121,6 +142,12 @@ public class WhatNumberActivity extends Activity {
 					}
 				});
 		dialogBuilder.show();
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> arg0) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

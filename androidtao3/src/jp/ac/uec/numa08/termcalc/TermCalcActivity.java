@@ -7,33 +7,56 @@ import java.util.Locale;
 import jp.ac.uec.numa08.core.R;
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 /**
- * 期間を計算するActivity. シークバーを動かすと、計算をして出力する. シークバーのコールバックメソッドは
- * onStartTrack,onProgressChanged,onStopTrackingの3つがあり、 匿名クラスで記述するとややこしくなるので
- * OnSeekBarChangedListener クラスをimplements する
+ * 期間を計算するActivity. <br>
+ * シークバーを動かすと、計算をして出力する. <br>
+ * シークバーのコールバックメソッドは
+ * <ul>
+ * <li>onStartTrack</li>
+ * <li>onProgressChanged</li>
+ * <li>onStopTracking</li>
+ * </ul>
+ * の3つがあり、 匿名クラスで記述するとややこしくなるので OnSeekBarChangedListener クラスをimplements する
  * 
  * @author numanuma08
  * 
  */
 public class TermCalcActivity extends Activity implements
 		OnSeekBarChangeListener {
-	private static final String TAG = TermCalcActivity.class.getSimpleName();
+	// private static final String TAG = TermCalcActivity.class.getSimpleName();
+	/** シークバーの最大値 */
 	private static final int SEEKBAR_MAX = 100;
+	/** シークバーの初期値 */
 	private static final int DEFAULT_SEEKBAR = SEEKBAR_MAX / 2;
 
+	/** 期間計算を行うクラス */
 	private transient CalendarCalculator calendarCalc;
+	/** 片方の日付はDatePickerを利用する。 */
 	private transient DatePicker fromDatePicker;
+	/** DatePickerから取り出した日付などを保存するクラス。 */
 	private transient Calendar fromCalendar;
+	/** 結果を出力するTextView */
 	private transient TextView resultTextView;
+	/** 期間を出力するTextView */
 	private transient TextView addDateTextView;
 
-	/** Called when the activity is first created. */
+	/**
+	 * Activity起動時に呼び出されるメソッド。<br>
+	 * やること多いよ！<br>
+	 * <ol>
+	 * <li>DatePickerの初期化</li>
+	 * <li>日付保存カレンダーの初期化</li>
+	 * <li>計算クラスの初期化</li>
+	 * <li>結果表示TextViewの初期化</li>
+	 * <li>期間出力TextViewの初期化</li>
+	 * <li>シークバーの初期化</li>
+	 * </ol>
+	 */
 	@Override
 	public void onCreate(final Bundle sIState) {
 		super.onCreate(sIState);
@@ -51,6 +74,7 @@ public class TermCalcActivity extends Activity implements
 		initializeSeekBar();
 	}
 
+	/** 期間を0として計算をして結果を出力する。 */
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
@@ -59,7 +83,8 @@ public class TermCalcActivity extends Activity implements
 	}
 
 	/**
-	 * シークバーの初期化
+	 * シークバーの初期化。<br>
+	 * シークバーは、中央を0として最大が50,最小が-50となる。
 	 */
 	private void initializeSeekBar() {
 		final SeekBar termSeekbar = (SeekBar) findViewById(R.id.term_seekbar);
@@ -69,10 +94,15 @@ public class TermCalcActivity extends Activity implements
 	}
 
 	/**
-	 * 結果を表示するメソッド
+	 * 結果を表示するメソッド。<br>
+	 * SimpleDateFormatを利用して、計算結果をエレガントに出力する。<br>
+	 * でも、SimpleDateFormatはエレガントじゃないんだって・・・。知らんがな。
 	 * 
 	 * @param calendar
-	 *            表示する結果の日付
+	 *            計算後のカレンダークラス。　
+	 * 
+	 * @param addDate
+	 *            増減した日付。
 	 */
 	private void viewResult(final Calendar calendar, final int addDate) {
 		addDateTextView.setText(addDate + "日後");
@@ -92,14 +122,16 @@ public class TermCalcActivity extends Activity implements
 		resultTextView.setText(outputString);
 	}
 
-	/*
-	 * シークバーが動かされている最中に呼ばれるメソッド {@inheritDoc}
+	/**
+	 * シークバーの値が変わった時に呼び出されるメソッド。<br>
+	 * DatePickerとシークバーから値を読み取って計算を行う。<br>
+	 * 計算はCalendarCalculatorクラス内で実装している。
 	 */
 	@Override
 	public void onProgressChanged(final SeekBar seekBar, final int progress,
 			final boolean fromUser) {
 		// TODO Auto-generated method stub
-		Log.d(TAG, Integer.toString(progress));
+		// Log.d(TAG, Integer.toString(progress));
 		fromCalendar.clear();
 		fromCalendar.set(fromDatePicker.getYear(), fromDatePicker.getMonth(),
 				fromDatePicker.getDayOfMonth());
@@ -116,7 +148,7 @@ public class TermCalcActivity extends Activity implements
 	@Override
 	public void onStartTrackingTouch(final SeekBar seekBar) {
 		// TODO Auto-generated method stub
-		Log.d(TAG, Integer.toString(seekBar.getProgress()));
+		// Log.d(TAG, Integer.toString(seekBar.getProgress()));
 	}
 
 	/*
@@ -125,6 +157,6 @@ public class TermCalcActivity extends Activity implements
 	@Override
 	public void onStopTrackingTouch(final SeekBar seekBar) {
 		// TODO Auto-generated method stub
-		Log.d(TAG, Integer.toString(seekBar.getProgress()));
+		// Log.d(TAG, Integer.toString(seekBar.getProgress()));
 	}
 }

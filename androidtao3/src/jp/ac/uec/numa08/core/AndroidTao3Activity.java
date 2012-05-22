@@ -12,40 +12,41 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 /**
- * @author numanuma08 最初に起動するActivity．様々なアプリへのボタンを用意している． View.OnClickListener
- *         をimplementsすることで各ボタンのリスナークラスをこのクラスに設定している．
- *         ボタンの数が多い場合などは、匿名クラスは利用せずに特定のクラスをリスナークラスとしたほうが コードが見やすくなると思う.
+ * 最初に起動するActivity。<br>
+ * 様々なアプリへのボタンを用意している． <br>
+ * View.OnClickListenerをimplementsすることで各ボタンのリスナークラスをこのクラスに設定している．<br>
+ * ボタンの数が多い場合などは、匿名クラスは利用せずに特定のクラスをリスナークラスとしたほうが コードが見やすくなると思う.
+ * 
+ * @author numanuma08
  * 
  */
 public class AndroidTao3Activity extends Activity implements OnClickListener {
-	/** Called when the activity is first created. */
-	private static final int[] _ButtonIds = { R.id.first_app, R.id.second_app,
+	/** 画面上のボタンのidを保存する配列。 */
+	private static final int[] BUTTON_IDS = { R.id.first_app, R.id.second_app,
 			R.id.therd_app, R.id.fourth_app, R.id.fifth_app };
 
-	/*
-	 * (non-Javadoc)
+	/**
 	 * 
-	 * @see android.app.Activity#onCreate(android.os.Bundle)
-	 * onCreateメソッド内では、ボタンの初期化を行う．
-	 * ボタンのidは予め配列に入れてあるし，全てのボタンのリスナークラスはこのクラスであるため，ループ処理を利用して短い行で実現できる．`
+	 * onCreateメソッド内では、ボタンの初期化を行う．<br>
+	 * ボタンのidは予め配列に入れてあるし，全てのボタンのリスナークラスはこのクラスであるため，<br>
+	 * ループ処理を利用して短い行で実現できる．`
 	 */
 	@Override
 	public void onCreate(final Bundle sIState) {
 		super.onCreate(sIState);
 		setContentView(R.layout.main);
 
-		for (int id : _ButtonIds) {
+		for (int id : BUTTON_IDS) {
 			findViewById(id).setOnClickListener(AndroidTao3Activity.this);
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
 	 * 
-	 * @see android.view.View.OnClickListener#onClick(android.view.View)
-	 * ボタンがクリックされたら呼び出されるメソッド．
-	 * 引数のViewは，getIdメソッドで押されたボタンのidを取得することができる．idはint型であるため
-	 * ，switch分を利用した条件分岐が可能である.この様にして，ボタンごとに異なる動作を行わせることができる．
+	 * ボタンがクリックされたら呼び出されるメソッド．<br>
+	 * 引数のViewは，getIdメソッドで押されたボタンのidを取得することができる．<br>
+	 * idはint型であるため ，switch分を利用した条件分岐が可能である.<br>
+	 * この様にして，ボタンごとに異なる動作を行わせることができる．
 	 */
 	@Override
 	public void onClick(final View view) {
