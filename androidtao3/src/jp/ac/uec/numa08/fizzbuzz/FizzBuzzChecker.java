@@ -1,5 +1,9 @@
 package jp.ac.uec.numa08.fizzbuzz;
 
+/**
+ * @author numanuma08 ユーザの入力が正解かどうかを判断するクラス。
+ * 
+ */
 public class FizzBuzzChecker {
 	public static final String FIZZ_BUZZ_MSG = "FizzBuzz";
 	public static final String BUZZ_MSG = "Buzz";
@@ -11,11 +15,23 @@ public class FizzBuzzChecker {
 
 	private transient final int targetNumber;
 
+	/**
+	 * コンストラクタ.
+	 * 
+	 * @param targetNumber
+	 *            画面に表示されている数字.
+	 * 
+	 */
 	public FizzBuzzChecker(final int targetNumber) {
 		this.targetNumber = targetNumber;
 	}
 
-	public String check() {
+	/**
+	 * 正しい答えを求める.
+	 * 
+	 * @return 正しい答え.Fizz,Buzz,FizzBuzz,数字のままのいずれか.
+	 */
+	private String answer() {
 		String message;
 		if (targetNumber % FIZZBUZZ == 0) {
 			message = FizzBuzzChecker.FIZZ_BUZZ_MSG;
@@ -28,4 +44,17 @@ public class FizzBuzzChecker {
 		}
 		return message;
 	}
+
+	/**
+	 * ユーザの入力が正解かどうかを求める
+	 * 
+	 * @param userInput
+	 *            ユーザの入力
+	 * @return 正解かどうか
+	 */
+	public boolean isCollect(final String userInput) {
+		final String answer = answer();
+		return answer.equals(userInput);
+	}
+
 }

@@ -4,10 +4,14 @@
     <string name="app_name">Android道第3回</string>
     <string name="first_app">FizzBuzz</string>
     <string name="second_app">王様ゲーム</string>
-    <string name="therd_app">割り勘電卓</string>
-    <string name="fourth_app">数宛ゲーム</string>
+    <string name="therd_app">ネオFizzBuzz</string>
+    <string name="fourth_app">数当てゲーム</string>
     <string name="fifth_app">期間計算</string>
     <string name="fizz">fizz</string>
     <string name="buzz">buzz</string>
+    <string name="attend">参加人数</string>
+    <string name="decide_king">王様だ～れだ</string>
+    <string name="what_do">何をする？</string>
+    <string name="question_message">私は何番でしょうか？</string>
 
 </resources>
