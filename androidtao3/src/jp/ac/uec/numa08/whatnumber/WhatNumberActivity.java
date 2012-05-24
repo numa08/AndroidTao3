@@ -74,8 +74,8 @@ public class WhatNumberActivity extends Activity implements
 	 * ちょっと細工をしてやる必要がある。
 	 */
 	@Override
-	public void onItemSelected(AdapterView<?> parent, View view, int position,
-			long selectedId) {
+	public void onItemSelected(final AdapterView<?> parent, final View view,
+			final int position, final long selectedId) {
 		// TODO Auto-generated method stub
 
 		// なぜかスピナーはonResume()の後に、onItemSelected()が呼び出されてしまう.

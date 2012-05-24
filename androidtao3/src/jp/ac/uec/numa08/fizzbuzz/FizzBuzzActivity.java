@@ -3,6 +3,7 @@ package jp.ac.uec.numa08.fizzbuzz;
 import jp.ac.uec.numa08.core.R;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,6 +23,8 @@ public class FizzBuzzActivity extends Activity implements OnClickListener {
 			R.id.buzz_button, R.id.fizz_buzz_button, R.id.number_button };
 	/** 現在出題中の問題 */
 	protected transient int targetNumber = 1;
+	/** 最大の問題数 */
+	protected static final int MAX_QUESTION = 5;
 
 	/**
 	 * Activity起動時に呼び出される。<br>
@@ -43,8 +46,10 @@ public class FizzBuzzActivity extends Activity implements OnClickListener {
 
 	/**
 	 * ボタンがクリックされた時に呼ばれるメソッド。<br>
-	 * 押したボタンが正解だった場合は、問題の数字を１つ増やす。<br>
-	 * 間違っていると、ダイアログを出す。
+	 * まず、押したボタンが正解かどうかを調べる。<br>
+	 * その上で、終了条件を満たすならゲームを終了する。<br>
+	 * 満たさない、ゲームを続行する。<br>
+	 * 終了する時は、終了処理を呼び出す。
 	 */
 	@Override
 	public void onClick(final View view) {
@@ -52,12 +57,45 @@ public class FizzBuzzActivity extends Activity implements OnClickListener {
 		final boolean isCollect = checkAnswer(view);
 		if (isCollect) {
 			targetNumber++;
-			changeText(targetNumber);
-			changeButtonText(targetNumber);
-		} else {
-			new AlertDialog.Builder(FizzBuzzActivity.this).setMessage("違います.")
-					.show();
+			if (isEnd()) {
+				endGame("お疲れ様");
+			} else {
+				changeText(targetNumber);
+				changeButtonText(targetNumber);
+			}
 		}
+	}
+
+	/**
+	 * 終了判定.<br>
+	 * 現在の問題数が規定値を超えたら、終わらせるようにする。
+	 * 
+	 * @return 条件を満たしたらtrue
+	 */
+	private boolean isEnd() {
+		return targetNumber > MAX_QUESTION;
+	}
+
+	/**
+	 * ゲームの終了処理.ダイアログでメッセージをだして終了する.
+	 * 
+	 * @param endMessage
+	 *            表示するメッセージ。
+	 */
+	protected void endGame(final String endMessage) {
+		final AlertDialog.Builder builder = new AlertDialog.Builder(
+				FizzBuzzActivity.this);
+		builder.setMessage(endMessage);
+		builder.setPositiveButton("終了", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(final DialogInterface dialog, final int which) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+				finish();
+			}
+		});
+		builder.show();
 	}
 
 	/**

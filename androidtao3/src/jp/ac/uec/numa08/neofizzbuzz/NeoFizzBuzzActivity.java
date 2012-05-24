@@ -28,7 +28,7 @@ public class NeoFizzBuzzActivity extends FizzBuzzActivity {
 			R.id.buzz_button, R.id.fizz_buzz_button, R.id.number_button };
 
 	/** 問題の総数 */
-	private static final int MAX_QUESTION = 20;
+	private static final int MAX_QUESTION = 5;
 
 	/** 出題される数字の最大値＋１ */
 	private static final int MAX_NUMBER = 100 + 1;
@@ -161,23 +161,13 @@ public class NeoFizzBuzzActivity extends FizzBuzzActivity {
 	}
 
 	/**
-	 * 終了処理。クロノメータを止め、ダイアログを出してActivityを閉じる。
+	 * 終了処理。<br>
+	 * FizzBuzzActivityのendGameに、クロノメータの計測時間を渡す.
 	 */
 	private void endGame() {
 		coutUpChrono.stop();
-		final AlertDialog.Builder builder = new AlertDialog.Builder(
-				NeoFizzBuzzActivity.this);
-		builder.setMessage("おつかれさん。クリアタイムは" + coutUpChrono.getText().toString()
-				+ "だったよ。");
-		builder.setPositiveButton("おつ～", new OnClickListener() {
-
-			@Override
-			public void onClick(final DialogInterface dialog, final int which) {
-				// TODO Auto-generated method stub
-				finish();
-			}
-		});
-		builder.show();
+		final String endMessage = "おつかれさん。クリアタイムは"
+				+ coutUpChrono.getText().toString() + "だったよ。";
+		super.endGame(endMessage);
 	}
-
 }
